@@ -27,7 +27,6 @@ module.exports.connect = function () {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ssl: true,
-      sslValidate: true,
       serverSelectionTimeoutMS: 5000,  // Timeout for server selection
     };
 
