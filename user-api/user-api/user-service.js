@@ -28,7 +28,6 @@ module.exports.connect = function () {
       useUnifiedTopology: true,
       ssl: true,
       sslValidate: true,
-      sslCA: [require('fs').readFileSync('path_to_your_ca.pem')], // Path to CA certificate, if needed
       serverSelectionTimeoutMS: 5000,  // Timeout for server selection
     };
 
