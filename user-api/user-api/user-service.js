@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// MongoDB connection string
 let mongoDBConnectionString = process.env.MONGO_URL;
 
 let Schema = mongoose.Schema;
 
+// Define the user schema
 let userSchema = new Schema({
   userName: {
     type: String,
@@ -17,12 +19,23 @@ let userSchema = new Schema({
 
 let User;
 
+// Function to connect to MongoDB
 module.exports.connect = function () {
   return new Promise(function (resolve, reject) {
-    let db = mongoose.createConnection(mongoDBConnectionString);
+    // Add TLS/SSL options for secure connection
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      ssl: true,
+      sslValidate: true,
+      sslCA: [require('fs').readFileSync('path_to_your_ca.pem')], // Path to CA certificate, if needed
+      serverSelectionTimeoutMS: 5000,  // Timeout for server selection
+    };
+
+    let db = mongoose.createConnection(mongoDBConnectionString, options);
 
     db.on('error', (err) => {
-      reject(err);
+      reject(`MongoDB connection error: ${err}`);
     });
 
     db.once('open', () => {
