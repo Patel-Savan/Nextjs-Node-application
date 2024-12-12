@@ -27,7 +27,7 @@ module.exports.connect = function () {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ssl: true,
-      serverSelectionTimeoutMS: 5000,  // Timeout for server selection
+      serverSelectionTimeoutMS: 10000,  // Timeout for server selection
     };
 
     let db = mongoose.createConnection(mongoDBConnectionString, options);
