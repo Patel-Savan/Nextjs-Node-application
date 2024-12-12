@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // MongoDB connection string
 let mongoDBConnectionString = process.env.MONGO_URL;
+
+if(!mongoDBConnectionString){
+  console.error('MongoDB connection string is missing.');
+  process.exit(1); // Exit the process if URI is undefined
+}
 
 let Schema = mongoose.Schema;
 
@@ -24,8 +32,6 @@ module.exports.connect = function () {
   return new Promise(function (resolve, reject) {
     // Add TLS/SSL options for secure connection
     const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       ssl: true,
       serverSelectionTimeoutMS: 10000,  // Timeout for server selection
     };
